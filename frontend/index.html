@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediTrack v2 — Patient Risk Management</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <!-- ========================= LOGIN ========================= -->
+  <div id="login-view" class="login-wrap">
+    <div class="login-card">
+      <div class="logo">🏥</div>
+      <h1>MediTrack</h1>
+      <p class="sub">Patient Health Record &amp; Risk Management</p>
+      <form id="login-form">
+        <input type="text" id="login-username" placeholder="Username" value="admin" autocomplete="username">
+        <input type="password" id="login-password" placeholder="Password" value="admin123" autocomplete="current-password">
+        <button type="submit" class="btn btn-primary">Sign in</button>
+      </form>
+      <p class="hint">Default: admin / admin123 &nbsp;•&nbsp; dr.sharma / doctor123</p>
+      <p id="login-error" class="error"></p>
+    </div>
+  </div>
+
+  <!-- ========================= DASHBOARD ========================= -->
+  <div id="dashboard" class="hidden">
+    <header class="topbar">
+      <div class="brand">🏥 MediTrack <span>v2</span></div>
+      <div class="top-actions">
+        <span id="user-chip"></span>
+        <button class="btn btn-ghost" id="btn-logout">Logout</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <nav>
+          <button class="nav-btn active" data-view="overview">📊 Overview</button>
+          <button class="nav-btn" data-view="patients">🧑‍⚕️ Patients</button>
+          <button class="nav-btn" data-view="add">➕ Add Patient</button>
+          <button class="nav-btn" data-view="ml">🤖 ML Model</button>
+          <button class="nav-btn" data-view="departments">🏢 Departments</button>
+        </nav>
+      </aside>
+
+      <!-- Content -->
+      <section class="content">
+        <!-- Overview -->
+        <div id="view-overview" class="view">
+          <h2>Overview</h2>
+          <div class="stat-cards" id="stat-cards"></div>
+          <div class="card">
+            <h3>Risk distribution</h3>
+            <div class="risk-bar" id="risk-bar"></div>
+          </div>
+          <div class="card">
+            <h3>Top risk patients</h3>
+            <table class="table" id="top-risk-table">
+              <thead><tr><th>ID</th><th>Name</th><th>Age</th><th>Blood</th><th>Risk</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Patients -->
+        <div id="view-patients" class="view hidden">
+          <h2>Patients</h2>
+          <div class="toolbar">
+            <input type="search" id="patient-search" placeholder="Search by name…">
+          </div>
+          <table class="table" id="patients-table">
+            <thead><tr><th>ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Blood</th><th>Risk</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <!-- Add patient -->
+        <div id="view-add" class="view hidden">
+          <h2>Add patient</h2>
+          <form id="add-form" class="form-grid">
+            <div class="f-row">
+              <input type="text" id="a-name" placeholder="Full name *" required>
+              <input type="date" id="a-dob" required>
+              <select id="a-gender" required>
+                <option value="">Gender *</option><option value="M">Male</option><option value="F">Female</option>
+              </select>
+              <input type="text" id="a-blood" placeholder="Blood group (e.g. O+) *" required>
+              <input type="number" step="0.1" id="a-height" placeholder="Height (cm)" min="0" max="250">
+              <input type="number" step="0.1" id="a-weight" placeholder="Weight (kg)" min="0" max="400">
+              <input type="text" id="a-allergies" placeholder="Allergies (comma separated)">
+            </div>
+            <button type="submit" class="btn btn-primary">Save patient</button>
+          </form>
+          <p id="add-msg" class="ok"></p>
+
+          <div class="card" id="patient-detail-card" class="hidden">
+            <h3 id="pd-title">Patient detail</h3>
+            <div id="pd-body"></div>
+          </div>
+        </div>
+
+        <!-- ML -->
+        <div id="view-ml" class="view hidden">
+          <h2>ML risk model</h2>
+          <div class="card" id="ml-card"></div>
+        </div>
+
+        <!-- Departments -->
+        <div id="view-departments" class="view hidden">
+          <h2>Hospital departments <span id="dept-count"></span></h2>
+          <div class="card tree" id="dept-tree"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
