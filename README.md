@@ -5,6 +5,11 @@ patient management system with a **rule-based clinical risk engine**, a
 **machine-learning risk-prediction model**, JWT **role-based authentication**,
 a REST **API** and a browser **dashboard**.
 
+> Published on GitHub: `github.com/Arthurs011/PROJECT_HEALTHCARE_MEDITRACK`
+
+**Status** — complete: ML risk model (ROC-AUC ≈ 0.91) + dashboard shipped,
+16 tests green. See [Tests](#tests).
+
 ```
                     FastAPI + SQLite + scikit-learn
 ```
@@ -104,6 +109,18 @@ MediTrack/
 |---|---|---|---|
 | Logistic Regression | 0.936 | 0.891 | 0.500 |
 | Random Forest | 0.976 | 0.913 | 0.845 |
+
+---
+
+## 🧪 Tests
+
+```bash
+uv run pytest           # 16 tests
+```
+
+The suite (16 tests) covers the API (auth, RBAC 401/403, patient CRUD, vitals,
+visits) and the rule-based risk engine (BMI category, BP stage, risk score).
+Deterministic and fully offline — no model training or network required.
 
 ---
 
